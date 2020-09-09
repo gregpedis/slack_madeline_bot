@@ -50,5 +50,5 @@ def post_notification(target, message):
 
 
 def post_notifications(target, messages):
-    responses = [post_notification(target, message) for message in messages] 
+    responses = [post_notification(target, message) for message in messages]
     return responses

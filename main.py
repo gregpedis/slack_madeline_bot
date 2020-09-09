@@ -1,5 +1,4 @@
 import simple_client as sc
-import datetime as dt
 
 # channel = "#random"
 
