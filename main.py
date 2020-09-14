@@ -1,19 +1,28 @@
+import time
+import random
+import storage as db
 import simple_client as sc
 
-# channel = "#random"
 
-messages = [
-    "http://kerio.ydrogiosonline.gr still has no TLS encryption.",
-    "Web apps and servers still use 5 billion different certificates.",
-    "fl1rd still dies once every now and then.",
-    "Prometheus still doesn't monitor the main production web server (amadeus)."
-]
+def get_member_id(username):
+    return "@" + db.members[username]
+
+
+def get_channel_id(channelname):
+    return "#" + db.channels[channelname]
+
+
+def get_emoji():
+    emoji = random.choice(db.emojis)
+    return ":" + emoji + ":"
 
 
 def main():
-    user = "@trafalgar1618"
-    responses = sc.post_notifications(user, messages)
+    user = get_member_id("kenji")
+    responses = [sc.post_notification(user, m, get_emoji()) for m in db.messages]
 
 
 if __name__ == "__main__":
+    start_time = time.time()
     main()
+    print(f"--- {time.time()-start_time} seconds ---")

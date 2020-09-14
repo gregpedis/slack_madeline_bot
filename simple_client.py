@@ -32,7 +32,7 @@ def post_file(target, filepath):
         print(f"Failure: {e.response['error']}")
 
 
-def post_notification(target, message):
+def post_notification(target, message, emoji=""):
     today = dt.date.today()
     first = dt.date(today.year, 1, 1)
     last = dt.date(today.year, 12, 31)
@@ -40,7 +40,7 @@ def post_notification(target, message):
     days_passed = (today-first).days
     days_remaining = (last-today).days
 
-    header = "*[Attention]*"
+    header = f"{emoji} *[Attention]* {emoji}"
     elapsed = f"`Days since start of year: {days_passed}`"
     remainder = f"`Days until end of year: {days_remaining}`"
 
@@ -49,6 +49,6 @@ def post_notification(target, message):
     return response
 
 
-def post_notifications(target, messages):
-    responses = [post_notification(target, message) for message in messages]
+def post_notifications(target, messages, emoji=""):
+    responses = [post_notification(target, message, emoji) for message in messages]
     return responses
