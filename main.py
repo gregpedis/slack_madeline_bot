@@ -1,3 +1,4 @@
+import sys
 import time
 import random
 import storage as db
@@ -18,8 +19,11 @@ def get_emoji():
 
 
 def main():
-    user = get_member_id("kenji")
-    responses = [sc.post_notification(user, m, get_emoji()) for m in db.messages]
+    assert len(sys.argv)>=2, "please provide the target user's name."
+    user = get_member_id(sys.argv[1])
+    notifications = [get_emoji() + ' ' + m for m in db.messages]
+    response = sc.post_notifications(user, notifications)
+    print("Status code: " + str(response.status_code))
 
 
 if __name__ == "__main__":

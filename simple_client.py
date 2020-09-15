@@ -1,5 +1,6 @@
 import configparser as cp
 import datetime as dt
+import functools as ft
 from slack import WebClient
 from slack.errors import SlackApiError
 
@@ -50,5 +51,6 @@ def post_notification(target, message, emoji=""):
 
 
 def post_notifications(target, messages, emoji=""):
-    responses = [post_notification(target, message, emoji) for message in messages]
-    return responses
+    merged_message = ft.reduce(lambda m1, m2: m1 + '\n' + m2, messages)
+    response = post_notification(target, merged_message, emoji)
+    return response
